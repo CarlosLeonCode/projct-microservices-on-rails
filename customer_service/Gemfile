@@ -41,3 +41,13 @@ group :development, :test do
 end
 
 
+
+gem "faker", "~> 3.5"
+
+gem "pry-byebug", "~> 3.10"
+
+gem "active_model_serializers", "~> 0.10.14"
+
+gem "bunny", "~> 2.23"
+
+gem "dotenv-rails", "~> 3.1"

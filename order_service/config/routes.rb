@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resource :orders
+      resources :orders, only: %i(index show create)
     end
   end
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
