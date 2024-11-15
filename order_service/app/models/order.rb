@@ -1,10 +1,9 @@
 class Order < ApplicationRecord
-  after_create :publish_order_created_event
+  enum :status, { "ordered": 0, "preparing": 1, "delivered": 2 }
 
-  private
+  validates :product_name, :quantity, :price, :customer_id, presence: { message: "is required." }
 
-  def publish_order_created_event
-    order_data = { customer_id: customer_id, order_id: id, total: total }
-    RabbitMQ.order_exchange.publish(order_data.to_json, routing_key: 'order.created')
-  end
+  validates :quantity, :customer_id, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
+  validates :price, numericality: { greater_than: 0 }
+  validates :status, inclusion: { in: statuses.keys, message: "%{value} is not a valid status" }
 end

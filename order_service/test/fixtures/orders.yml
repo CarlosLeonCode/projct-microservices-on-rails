@@ -5,9 +5,11 @@ one:
   quantity: 1
   price: 9.99
   status: 1
+  customer_id: 1
 
 two:
   product_name: MyString
   quantity: 1
   price: 9.99
   status: 1
+  customer_id: 1
