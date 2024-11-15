@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Order < ApplicationRecord
-  enum :status, { "ordered": 0, "preparing": 1, "delivered": 2 }
+  enum :status, { "created": 0, "preparing": 1, "delivered": 2 }
 
   validates :product_name, :quantity, :price, :customer_id, presence: { message: "is required." }
   validates :quantity, :customer_id, numericality: { only_integer: true, greater_than_or_equal_to: 1 }

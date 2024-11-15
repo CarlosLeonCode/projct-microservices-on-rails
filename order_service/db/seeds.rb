@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if Order.all.length === 0
   10.times do
     Order.create(

@@ -1,20 +1,13 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
   include Response
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
-  rescue_from ArgumentError, with: :handle_argument_error
+  rescue_from ActiveRecord::RecordNotFound, with: ->(exception) { handle_error(exception, :not_found) }
+  rescue_from ActiveRecord::RecordInvalid, ArgumentError, StandardError, with: ->(e) { handle_error(e, :unprocessable_entity) }
 
   private
-  
-  def record_not_found(exception)
-    json_response({ error: exception }, status: :not_found)
-  end
 
-  def record_invalid(exception)
-    json_response({ error: exception }, status: :unprocessable_entity)
-  end
-
-  def handle_argument_error(exception)
-    json_response({ error: exception }, status: :unprocessable_entity)
+  def handle_error(exception, status)
+    json_response(message: exception, response: nil, status: status)
   end
 end

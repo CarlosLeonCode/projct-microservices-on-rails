@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::OrdersController < ApplicationController
   include Response
 
@@ -9,18 +11,17 @@ class Api::V1::OrdersController < ApplicationController
     json_response(order)
   end
 
-  def show_by_customer
-  end
-
   def create
-    # order = Order.create!(order_params)    
-    # json_response(order, status: :created)
-    print "-----"
-        
-    sd = CustomerApiService.get_resource(endpoint: '/customers')
+    interactor = CreateOrder.call(
+      order_params: order_params,
+      customer_id: params[:customer_id]
+    )
     
-    binding.pry
-    
+    json_response(
+      response: { order: OrderSerializer.new(interactor.response[:order]), customer: interactor.response[:customer] },
+      message: "Order created!",
+      status: :created
+    )
   end
 
   private
