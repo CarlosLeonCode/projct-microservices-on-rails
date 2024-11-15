@@ -7,4 +7,8 @@ module Response
       response: response
     }, status: status
   end
+
+  def serialize_collection(collection, serializer)
+    ActiveModel::Serializer::CollectionSerializer.new(collection, serializer: serializer)
+  end
 end

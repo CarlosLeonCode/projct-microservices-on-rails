@@ -4,11 +4,12 @@ class Api::V1::OrdersController < ApplicationController
   include Response
 
   def index
-    json_response(Order.all)
+    serialized_orders = serialize_collection(Order.all, OrderSerializer)
+    json_response(response: serialized_orders, message: "success")
   end
 
   def show
-    json_response(order)
+    json_response(response: OrderSerializer.new(order), message: "success")
   end
 
   def create
@@ -18,7 +19,10 @@ class Api::V1::OrdersController < ApplicationController
     )
     
     json_response(
-      response: { order: OrderSerializer.new(interactor.response[:order]), customer: interactor.response[:customer] },
+      response: { 
+        order: OrderSerializer.new(interactor.response[:order]), 
+        customer: interactor.response[:customer] 
+      },
       message: "Order created!",
       status: :created
     )
