@@ -1,9 +1,12 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe Customer, type: :model do
   describe "Validations" do
-    it { should validate_presence_of(:customer_name, :address, :orders_count) }
+    it { should validate_presence_of(:customer_name) }
+    it { should validate_presence_of(:address) }
+    it { should validate_presence_of(:orders_count) }
 
     context "when attributes are missing" do
       %i[customer_name address orders_count].each do |attribute|
@@ -21,7 +24,7 @@ RSpec.describe Customer, type: :model do
       end
 
       it "is invalid if address is not a string" do
-        customer = build(:customer, address: 456)
+        customer = build(:customer, address: 21.2)
         expect(customer).not_to be_valid
       end
 
