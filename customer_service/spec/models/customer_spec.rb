@@ -11,32 +11,19 @@ RSpec.describe Customer, type: :model do
     context "when attributes are missing" do
       %i[customer_name address orders_count].each do |attribute|
         it "is invalid without #{attribute}" do
-          customer = build(:customer, attribute => nil)
-          expect(customer).not_to be_valid
+          expect(build(:customer, attribute => nil)).not_to be_valid
         end
       end
     end
 
     context "when attributes have incorrect data types" do 
-      it "is invalid if customer_name is not a string" do
-        customer = build(:customer, customer_name: 123)
-        expect(customer).not_to be_valid
-      end
-
-      it "is invalid if address is not a string" do
-        customer = build(:customer, address: 21.2)
-        expect(customer).not_to be_valid
-      end
-
-      it "is invalid if orders_count is not an integer" do
-        customer = build(:customer, orders_count: "abc")
-        expect(customer).not_to be_valid
-      end
+      it { expect(build(:customer, customer_name: 123)).not_to be_valid }
+      it { expect(build(:customer, address: 21.2)).not_to be_valid }
+      it { expect(build(:customer, orders_count: "abc")).not_to be_valid }
     end
 
     context "when attributes are correct" do
-      subject { create(:customer) }
-      it { expect(subject).to be_valid }
+      it { expect(create(:customer)).to be_valid }
     end
   end
 end

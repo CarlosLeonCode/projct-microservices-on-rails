@@ -11,8 +11,7 @@ RSpec.describe Order, type: :model do
     context "when attributes are missing" do
       %i[product_name quantity price status customer_id].each do |attribute|
         it "is invalid without #{attribute}" do
-          order = build(:order, attribute => nil)
-          expect(order).not_to be_valid
+          expect(build(:order, attribute => nil)).not_to be_valid
         end
       end
     end
