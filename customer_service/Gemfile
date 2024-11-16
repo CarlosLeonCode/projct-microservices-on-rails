@@ -51,3 +51,9 @@ gem "active_model_serializers", "~> 0.10.14"
 gem "bunny", "~> 2.23"
 
 gem "dotenv-rails", "~> 3.1"
+
+gem "rspec-rails", "~> 7.1"
+
+gem "factory_bot_rails", "~> 6.4"
+
+gem "shoulda-matchers", "~> 6.4"

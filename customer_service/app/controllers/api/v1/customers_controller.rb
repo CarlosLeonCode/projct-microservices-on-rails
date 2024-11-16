@@ -4,7 +4,7 @@ class Api::V1::CustomersController < ApplicationController
   include Response
 
   def show
-    json_response(response: CustomerSerializer.new(customer))
+    json_response(response: CustomerSerializer.new(customer), message: "success")
   end
 
   private
