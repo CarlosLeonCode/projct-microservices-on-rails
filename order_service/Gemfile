@@ -35,9 +35,6 @@ gem "active_model_serializers", "~> 0.10.14"
 # Debugger
 gem "pry-byebug", "~> 3.10"
 
-# Fake data generator
-gem "faker", "~> 3.5"
-
 # for use RabbitMQ
 gem "bunny", "~> 2.23"
 
@@ -59,4 +56,15 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Fake data generator
+  gem "faker", "~> 3.5"
 end
+
+gem "rspec-rails", "~> 7.1"
+
+gem "shoulda-matchers", "~> 6.4"
+
+gem "webmock", "~> 3.24"
+
+gem "factory_bot_rails", "~> 6.4"
