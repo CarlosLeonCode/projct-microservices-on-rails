@@ -15,7 +15,7 @@ class Api::V1::OrdersController < ApplicationController
   def create
     interactor = CreateOrder.call(
       order_params: order_params,
-      customer_id: params[:customer_id]
+      customer_id: params[:order][:customer_id]
     )
     
     json_response(

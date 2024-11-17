@@ -10,6 +10,10 @@ class CustomerApiService
     end
 
     def get_resource(endpoint:, params: {})
+      print("====")
+      print("====")
+      print(endpoint)
+      Rails.logger.debug "Calling external service: #{connection.url_prefix + endpoint}"
       response = connection.get(endpoint, params)
       raise "Error: #{response.status} - #{response.body}" unless response.success?
       

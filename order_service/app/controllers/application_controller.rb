@@ -2,8 +2,8 @@
 
 class ApplicationController < ActionController::API
   include Response
-  rescue_from ActiveRecord::RecordNotFound, with: ->(exception) { handle_error(exception, :not_found) }
   rescue_from ActiveRecord::RecordInvalid, ArgumentError, StandardError, with: ->(e) { handle_error(e, :unprocessable_entity) }
+  rescue_from ActiveRecord::RecordNotFound, with: ->(exception) { handle_error(exception, :not_found) }
 
   private
 
