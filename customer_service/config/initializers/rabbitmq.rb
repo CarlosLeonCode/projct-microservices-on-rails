@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'bunny'
 
 module RabbitMQ
@@ -14,6 +15,9 @@ module RabbitMQ
     end
   
     def channel
+      if @connection.nil? || !@connection.open?
+        @connection = connection
+      end
       Thread.current[:rabbitmq_channel] ||= connection.create_channel
     end
 

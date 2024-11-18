@@ -16,6 +16,7 @@ class CreateOrder
       order: create_order, 
       customer: fetch_customer 
     }
+    emit_event
   end
 
   private
@@ -25,9 +26,14 @@ class CreateOrder
   end
 
   def fetch_customer
-    CustomerApiService.get_resource(endpoint: "customers/#{context.customer_id}")["response"]
+    response = CustomerApiService.get_resource(endpoint: "customers/#{context.customer_id}")
+    response ? response["response"] : nil
   rescue Faraday::ConnectionFailed
     Rails.logger.warn("Customer service Connection Failed")
     nil
+  end
+
+  def emit_event
+    OrderEventProducer.publish('created', { customer_id: context.customer_id })
   end
 end
