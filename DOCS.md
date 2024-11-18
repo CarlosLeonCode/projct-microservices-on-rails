@@ -36,6 +36,12 @@ Esto levanta el servicio de RabbitMQ en local. Al verificar desde docker desktop
 
 ![image](https://github.com/user-attachments/assets/d942035b-8661-4060-948d-839d17a1850b)
 
+Ingresa a la siguiente ruta para acceder al administrador de RabbitMQ `http://localhost:15672`:
+- Ingresa `user` & `password`
+- Verás la siguiente vista
+
+![image](https://github.com/user-attachments/assets/d4dbb1b0-cbc2-4223-9907-be338cfae9e7)
+
 ## Funcionamiento
 A continuación vemos el diagrama de flujo, el cual nos muestra el funcionamiento y comunicación de los servicios al crear una nueva **orden**.
 
