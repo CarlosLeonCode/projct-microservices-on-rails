@@ -26,6 +26,13 @@ class Api::V1::OrdersController < ApplicationController
       message: "Order created!",
       status: :created
     )
+  rescue CustomerNotFound => e
+    Rails.logger.warn("Caught error: #{e}")
+    json_response(
+      response: nil,
+      message: e,
+      status: :not_found
+    )
   end
 
   private

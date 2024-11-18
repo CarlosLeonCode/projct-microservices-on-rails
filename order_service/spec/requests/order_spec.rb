@@ -70,16 +70,13 @@ RSpec.describe "Orders", type: :request do
       end
 
       it "creates a new order" do
-        
-        binding.pry
-        
-        # expect(response).to have_http_status(:created)
-        # parsed_response = JSON.parse(response.body)
-        # expect(parsed_response["response"]["order"]["product_name"]).to eq(valid_params.product_name)
-        # expect(parsed_response["response"]["order"]["quantity"]).to eq(valid_params.quantity)
-        # expect(parsed_response["response"]["order"]["price"].to_f).to eq(valid_params.price)
-        # expect(parsed_response["response"]["order"]["status"]).to eq(valid_params.status)
-        # expect(parsed_response["response"]["order"]["customer_id"]).to eq(valid_params.customer_id)
+        parsed_response = JSON.parse(response.body)
+        expect(response).to have_http_status(:created)
+        expect(parsed_response["response"]["order"]["product_name"]).to eq(valid_params.product_name)
+        expect(parsed_response["response"]["order"]["quantity"]).to eq(valid_params.quantity)
+        expect(parsed_response["response"]["order"]["price"].to_f).to eq(valid_params.price)
+        expect(parsed_response["response"]["order"]["status"]).to eq(valid_params.status)
+        expect(parsed_response["response"]["order"]["customer_id"]).to eq(valid_params.customer_id)
       end
     end
   end

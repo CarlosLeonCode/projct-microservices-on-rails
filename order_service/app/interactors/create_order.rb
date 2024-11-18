@@ -8,15 +8,23 @@ Using interactors, you can decouple the business logic from the controllers
 and models, following DIP by making higher-level modules 
 (e.g., controllers) less dependent on lower-level details.
 =end
+
+# Create order if customer services found a customer,
+# then update orders_count emiting a rabbitMQ event
 class CreateOrder
   include Interactor
 
   def call
-    context.response = { 
-      order: create_order, 
-      customer: fetch_customer 
-    }
-    emit_event
+    customer = fetch_customer
+    if customer
+      context.response = { 
+        order: create_order, 
+        customer: fetch_customer 
+      }
+      emit_event
+    else
+      raise CustomerNotFound
+    end    
   end
 
   private
@@ -26,8 +34,7 @@ class CreateOrder
   end
 
   def fetch_customer
-    response = CustomerApiService.get_resource(endpoint: "customers/#{context.customer_id}")
-    response ? response["response"] : nil
+    @customer ||= CustomerApiService.get_resource(endpoint: "customers/#{context.customer_id}")
   rescue Faraday::ConnectionFailed
     Rails.logger.warn("Customer service Connection Failed")
     nil
